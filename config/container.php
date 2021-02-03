@@ -4,6 +4,8 @@ use Psr\Container\ContainerInterface;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Slim\Middleware\ErrorMiddleware;
+use Slim\Views\PhpRenderer;
+use Selective\BasePath\BasePathMiddleware;
 
 return [
     'settings' => function () {
@@ -27,6 +29,13 @@ return [
             (bool)$settings['log_errors'],
             (bool)$settings['log_error_details']
         );
+    },
+    BasePathMiddleware::class => function (ContainerInterface $container) {
+        return new BasePathMiddleware($container->get(App::class));
+    },
+
+    PhpRenderer::class => function (ContainerInterface $container) {
+        return new PhpRenderer($container->get('settings')['view']['path']);
     },
 
 ];

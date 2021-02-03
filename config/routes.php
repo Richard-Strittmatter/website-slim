@@ -1,16 +1,15 @@
 <?php
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
+use App\Action\HomeAction;
+use App\Action\AboutAction;
+use App\Action\ContactAction;
+use App\Action\ContactSubmitAction;
 
 return function (App $app) {
-    $app->get('/', function (
-        ServerRequestInterface $request,
-        ResponseInterface $response
-    ) {
-        $response->getBody()->write('Hello, World!');
+    $app->get('/', HomeAction::class)->setName('home');
+    $app->get('/about', AboutAction::class)->setName('about');
+    $app->get('/contact', ContactAction::class)->setName('contact');
+    $app->post('/contact', ContactSubmitAction::class);
 
-        return $response;
-    });
 };

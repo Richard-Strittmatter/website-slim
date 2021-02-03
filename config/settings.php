@@ -30,4 +30,9 @@ $settings['error'] = [
     'log_error_details' => true,
 ];
 
+$settings['view'] = [
+    // Path to templates
+    'path' => __DIR__ . '/../templates',
+];
+
 return $settings;
