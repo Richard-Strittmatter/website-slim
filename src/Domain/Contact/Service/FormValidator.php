@@ -2,12 +2,15 @@
 
 namespace App\Domain\Contact\Service;
 
+use mysql_xdevapi\Exception;
+use App\Exception\ValidationException;
+
 /**
  * FormValidator
  */
 class FormValidator
 {
-    public function contactFormValidation(array $data): array
+    public function contactFormValidation(array $data): void
     {
         $errors = [];
 
@@ -23,6 +26,8 @@ class FormValidator
             $errors['address'] = 'Please enter your address';
         }
 
-        return $errors;
+        if ($errors){
+            throw new ValidationException('Input required', $errors);
+        }
     }
 }

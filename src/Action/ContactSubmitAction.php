@@ -5,7 +5,8 @@ namespace App\Action;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Views\PhpRenderer;
-use App\Domain\Contact\Service\FormValidator;
+use App\Domain\Contact\Service\Submit;
+use App\Exception\ValidationException;
 
 /**
  * ContactAction
@@ -17,24 +18,29 @@ final class ContactSubmitAction
      */
     private $renderer;
 
-    public function __construct(PhpRenderer $renderer, FormValidator $formValidator)
+    public function __construct(PhpRenderer $renderer, Submit $submit)
     {
         $this->renderer = $renderer;
-        $this->FormValidator = $formValidator;
+        $this->Submit = $submit;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface {
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
         $formdata = (array)$request->getParsedBody();
-
-        $validationErrors = $this->FormValidator->contactFormValidation($formdata);
 
         $this->renderer->setLayout('layout.php');
         $viewVars = [
             'contact' => 'Kontaktseite',
             'title' => 'Kontakt',
             'formdata' => $formdata,
-            'validationErrors' => $validationErrors,
         ];
+
+        try {
+            $lastID = $this->Submit->insertForm($formdata);
+            $viewVars['lastid'] = $lastID;
+        } catch (ValidationException $exception) {
+            $viewVars['validationErrors'] = $exception->getErrors();
+        }
 
         return $this->renderer->render($response, 'contact.php', $viewVars);
     }

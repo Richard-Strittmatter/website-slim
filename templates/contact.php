@@ -8,8 +8,8 @@
     <form method="post">
         <div class="form-row">
             <div class="form-group col-md-5">
-                <label for="inputEmail4">Firstname</label>
-                <input type="text" class="form-control" name="first_name" id="first_name" value="<?=$formdata['first_name']?>">
+                <label for="inputEmail4">Firstname*</label>
+                <input type="text" class="form-control" required name="first_name" id="first_name" value="<?=$formdata['first_name']?>">
                 <?php if ($validationErrors['first_name']):?>
                 <div class="alert alert-warning" role="alert">
                     <?=$validationErrors['first_name']?>
@@ -19,8 +19,8 @@
             </div>
             <br>
             <div class="form-group col-md-5">
-                <label for="inputPassword4">Lastname</label>
-                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Nachname" value="<?=$formdata['last_name']?>">
+                <label for="inputPassword4">Lastname*</label>
+                <input type="text" class="form-control" required name="last_name" id="last_name" placeholder="Nachname" value="<?=$formdata['last_name']?>">
                 <?php if ($validationErrors['last_name']):?>
                     <div class="alert alert-warning" role="alert">
                         <?=$validationErrors['last_name']?>
@@ -31,7 +31,7 @@
             <br>
         </div>
         <div class="form-group col-md-5">
-            <label for="inputAddress">Address</label>
+            <label for="inputAddress">Address*</label>
             <input type="text" class="form-control" name="address" id="inputAddress" placeholder="1234 Main St" value="<?=$formdata['address']?>">
             <?php if ($validationErrors['address']):?>
                 <div class="alert alert-warning" role="alert">
@@ -47,7 +47,7 @@
             </div>
             <br>
             <div class="form-group col-md-5">
-                <label for="inputState">State</label>
+                <label for="inputState">Country</label>
                 <select id="inputState" class="form-control" name="country">
                     <option selected>Schweiz</option>
                     <option>Deutschland</option>
@@ -61,6 +61,12 @@
             </div>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+<?php if ($lastID):?>
+<div class="alert alert-warning" role="alert">
+    <?php echo $lastID?>
+</div>
+<?php endif?>

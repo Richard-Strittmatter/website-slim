@@ -1,5 +1,6 @@
 <?php
 
+use Cake\Database\Connection;
 use Psr\Container\ContainerInterface;
 use Slim\App;
 use Slim\Factory\AppFactory;
@@ -38,4 +39,17 @@ return [
         return new PhpRenderer($container->get('settings')['view']['path']);
     },
 
+    // Database connection
+    Connection::class => function (ContainerInterface $container) {
+        return new Connection($container->get('settings')['db']);
+    },
+
+    PDO::class => function (ContainerInterface $container) {
+        $db = $container->get(Connection::class);
+        $driver = $db->getDriver();
+        $driver->connect();
+
+        return $driver->getConnection();
+    },
 ];
+
