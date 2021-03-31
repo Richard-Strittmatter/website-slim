@@ -4,6 +4,7 @@
 <body>
 <div class="container">
     <h1><?= html($contact) ?></h1>
+    <hr>
     <br>
     <form method="post">
         <div class="form-row">
@@ -24,6 +25,16 @@
                 <?php if ($validationErrors['last_name']):?>
                     <div class="alert alert-warning" role="alert">
                         <?=$validationErrors['last_name']?>
+                    </div>
+                <?php endif?>
+            </div>
+            <br>
+            <div class="form-group col-md-5">
+                <label for="inputPassword4">E-Mail*</label>
+                <input type="text" class="form-control" required name="email" id="email" placeholder="E-Mail" value="<?=$formdata['email']?>">
+                <?php if ($validationErrors['email']):?>
+                    <div class="alert alert-warning" role="alert">
+                        <?=$validationErrors['email']?>
                     </div>
                 <?php endif?>
             </div>

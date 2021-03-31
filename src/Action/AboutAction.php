@@ -20,6 +20,7 @@ final class AboutAction
         $this->renderer = $renderer;
     }
 
+
     public function __invoke(
         ServerRequestInterface $request,
         ResponseInterface $response

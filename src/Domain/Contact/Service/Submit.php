@@ -30,8 +30,7 @@ class Submit
     {
         $this->FormValidator->contactFormValidation($formdata);
         // Insert Form
-        $formWrite = $this->repository->insertFormData($formdata);
 
-        return $formWrite;
+        return $this->repository->insertFormData($formdata);
     }
 }

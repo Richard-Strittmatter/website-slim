@@ -1,16 +1,19 @@
 {
     "require": {
         "php": "^7.3 || ^8.0",
+        "ext-fileinfo": "*",
         "ext-json": "*",
         "ext-pdo": "*",
         "cakephp/database": "^4.2",
+        "intervention/image": "^2.5",
         "monolog/monolog": "^2",
         "php-di/php-di": "^6.3",
         "selective/basepath": "^1",
         "selective/validation": "^0.12",
         "slim/php-view": "^3.0",
         "slim/psr7": "^1.2",
-        "slim/slim": "^4.7"
+        "slim/slim": "^4.7",
+        "symfony/mailer": "^5.2"
     },
     "require-dev": {
     },
@@ -29,5 +32,7 @@
     },
     "config": {
         "sort-packages": true
-    }
+    },
+    "description": "",
+    "name": ""
 }

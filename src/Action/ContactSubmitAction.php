@@ -2,6 +2,7 @@
 
 namespace App\Action;
 
+use App\Domain\Contact\Service\ContactMailer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Views\PhpRenderer;
@@ -17,11 +18,22 @@ final class ContactSubmitAction
      * @var PhpRenderer
      */
     private $renderer;
+    /**
+     * @var Submit
+     */
+    private $submit;
 
-    public function __construct(PhpRenderer $renderer, Submit $submit)
+    /**
+     * Contact Mailer
+     * @var ContactMailer
+     */
+    private $mailer;
+
+    public function __construct(PhpRenderer $renderer, Submit $submit, ContactMailer $mailer)
     {
         $this->renderer = $renderer;
-        $this->Submit = $submit;
+        $this->submit = $submit;
+        $this->mailer = $mailer;
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -32,12 +44,13 @@ final class ContactSubmitAction
         $viewVars = [
             'contact' => 'Kontaktseite',
             'title' => 'Kontakt',
-            'formdata' => $formdata,
+            'formData' => $formdata,
         ];
 
         try {
-            $lastID = $this->Submit->insertForm($formdata);
+            $lastID = $this->submit->insertForm($formdata);
             $viewVars['lastid'] = $lastID;
+            $this->mailer->sendEmail($viewVars['formData']);
         } catch (ValidationException $exception) {
             $viewVars['validationErrors'] = $exception->getErrors();
         }

@@ -31,6 +31,7 @@ final class SubmitRepository
         $values = [
             'first_name' => $formdata['first_name'],
             'last_name' => $formdata['last_name'],
+            'email' => $formdata['email'],
             'address' => $formdata['address'],
         ];
 

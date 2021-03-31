@@ -7,6 +7,10 @@ use Slim\Factory\AppFactory;
 use Slim\Middleware\ErrorMiddleware;
 use Slim\Views\PhpRenderer;
 use Selective\BasePath\BasePathMiddleware;
+use Intervention\Image\ImageManager;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Transport;
 
 return [
     'settings' => function () {
@@ -50,6 +54,27 @@ return [
         $driver->connect();
 
         return $driver->getConnection();
+    },
+
+    ImageManager::class => function (ContainerInterface $container) {
+        return new ImageManager($container->get('settings')['image_manager']);
+    },
+
+    // SMTP transport
+    MailerInterface::class => function (ContainerInterface $container) {
+        $settings = $container->get('settings')['smtp'];
+
+        // smtp://user:pass@smtp.example.com:25
+        $dsn = sprintf(
+            '%s://%s:%s@%s:%s',
+            $settings['type'],
+            $settings['username'],
+            $settings['password'],
+            $settings['host'],
+            $settings['port']
+        );
+
+        return new Mailer(Transport::fromDsn($dsn));
     },
 ];
 

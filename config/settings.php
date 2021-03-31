@@ -63,4 +63,19 @@ $settings['db'] = [
     ],
 ];
 
+// E-Mail settings
+$settings['smtp'] = [
+        'type' => 'smtp',
+        'host' => 'debugmail.io',
+        'port' => 9025,
+        'timeout' => 5,
+        'username' => 'richard.strittmatter@orca.ch',
+        'password' => 'a4b44160-91ef-11eb-ab4a-bbbac65258af',
+];
+
+$settings['image_manager'] = [
+    // configure image driver (gd by default)
+    'driver' => 'gd',
+];
+
 return $settings;

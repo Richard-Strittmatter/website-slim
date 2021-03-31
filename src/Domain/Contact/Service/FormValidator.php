@@ -22,6 +22,10 @@ class FormValidator
             $errors['last_name'] = 'Input required';
         }
 
+        if (empty($data['email'])){
+            $errors['email'] = 'Please enter your E-Mail';
+        }
+
         if (empty($data['address'])){
             $errors['address'] = 'Please enter your address';
         }
