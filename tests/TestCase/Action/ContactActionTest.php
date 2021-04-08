@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Home Action Test
  */
-class HomeActionTest extends TestCase
+class ContactActionTest extends TestCase
 {
     use AppTestTrait;
 
@@ -19,10 +19,10 @@ class HomeActionTest extends TestCase
      */
     public function testAction(): void
     {
-        $request = $this->createRequest('GET', '/');
+        $request = $this->createRequest('GET', '/contact');
         $response = $this->app->handle($request);
 
-        $this->assertStringContainsString('Willkommen', (string)$response->getBody());
+        $this->assertStringContainsString('Kontaktseite', (string)$response->getBody());
         $this->assertSame(200, $response->getStatusCode());
     }
 }
