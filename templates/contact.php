@@ -76,8 +76,8 @@
     </form>
 </div>
 
-<?php if ($lastID):?>
+<?php if ($lastid):?>
 <div class="alert alert-warning" role="alert">
-    <?php echo $lastID?>
+    <?php echo $lastid?>
 </div>
 <?php endif?>
